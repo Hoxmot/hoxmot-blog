@@ -1,0 +1,6 @@
+# JS/TS
+node_modules
+dist
+
+# Astro
+.astro
