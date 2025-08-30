@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoxmot blog</title>
+    <!-- Tailwind CSS CDN for preview purposes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Configure Tailwind to include the Inter and JetBrains Mono fonts
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+              'jetbrains-mono': ['JetBrains Mono', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Google Fonts - Inter for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts - JetBrains Mono for headers -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for RSS icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLpXy8LgV8qW6wJpY7g7qBfB3zK7T1H3d5t7Z8s0Q4HqT4+t4d9g6kC5zO3wFp0+4wBv7b4V5d5e2e8eW2Lw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="font-inter bg-black text-white min-h-screen flex flex-col">
+    <!-- Header Component (simulated for preview) -->
+    <header class="bg-gray-900 text-white p-4 shadow-md">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <a href="#" class="font-jetbrains-mono text-3xl font-bold text-white hover:text-orange-400 transition-colors duration-200">
+                Hoxmot blog
+            </a>
+            <nav class="flex items-center space-x-6">
+                <ul class="flex space-x-6">
+                    <li>
+                        <a href="#" class="text-lg hover:text-orange-400 transition-colors duration-200">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-lg hover:text-orange-400 transition-colors duration-200">Tech</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-lg hover:text-orange-400 transition-colors duration-200">Video Games</a>
+                    </li>
+                    <!-- RSS Dropdown -->
+                    <li class="relative">
+                        <button id="rss-dropdown-toggle" class="flex items-center text-lg hover:text-orange-400 transition-colors duration-200 focus:outline-none">
+                            RSS
+                            <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="rss-dropdown-menu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 hidden z-10">
+                            <a href="/feed/all.xml" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-orange-400 transition-colors duration-200">All Posts</a>
+                            <a href="/feed/tech.xml" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-orange-400 transition-colors duration-200">Tech</a>
+                            <a href="/feed/games.xml" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-orange-400 transition-colors duration-200">Video Games</a>
+                        </div>
+                    </li>
+                </ul>
+                <form action="#" method="get" class="relative">
+                    <input
+                        type="search"
+                        placeholder="Search..."
+                        class="pl-4 pr-10 py-2 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-300"
+                    />
+                    <svg class="w-5 h-5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </form>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <h1 class="font-jetbrains-mono text-4xl sm:text-5xl md:text-6xl text-center font-extrabold text-orange-400 mb-8">
+            Welcome to Hoxmot blog
+        </h1>
+
+        <div class="space-y-12">
+            <!-- Tech Posts Section -->
+            <section>
+                <h2 class="font-jetbrains-mono text-3xl font-bold text-white mb-6">Tech</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Simulated Tech blog post card 1 -->
+                    <a href="#" class="bg-gray-900 rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-orange-400/50 transition-shadow duration-300">
+                        <img
+                            src="https://placehold.co/600x400/333/FF8C00?text=Tech"
+                            alt="A placeholder image for a tech blog post"
+                            class="w-full h-48 object-cover object-center"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FF8C00?text=No+Image';"
+                        />
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h2 class="font-jetbrains-mono text-2xl font-bold text-orange-400 mb-2">A Guide to React Hooks</h2>
+                            <p class="text-gray-400 text-sm mb-4">2023-11-20</p>
+                            <p class="text-gray-300 flex-grow">An in-depth look at `useState`, `useEffect`, and other essential React hooks.</p>
+                        </div>
+                    </a>
+
+                    <!-- Simulated Tech blog post card 2 -->
+                    <a href="#" class="bg-gray-900 rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-orange-400/50 transition-shadow duration-300">
+                        <img
+                            src="https://placehold.co/600x400/333/FF8C00?text=Tech"
+                            alt="A placeholder image for a tech blog post"
+                            class="w-full h-48 object-cover object-center"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FF8C00?text=No+Image';"
+                        />
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h2 class="font-jetbrains-mono text-2xl font-bold text-orange-400 mb-2">Building a CLI with Node.js</h2>
+                            <p class="text-gray-400 text-sm mb-4">2023-12-01</p>
+                            <p class="text-gray-300 flex-grow">Walk through the steps of creating a command-line interface with Node.js and npm.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Video Games Section -->
+            <section>
+                <h2 class="font-jetbrains-mono text-3xl font-bold text-white mb-6">Video Games</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Simulated Video Games blog post card 1 -->
+                    <a href="#" class="bg-gray-900 rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-orange-400/50 transition-shadow duration-300">
+                        <img
+                            src="https://placehold.co/600x400/333/FF8C00?text=Games"
+                            alt="A placeholder image for a video game blog post"
+                            class="w-full h-48 object-cover object-center"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FF8C00?text=No+Image';"
+                        />
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h2 class="font-jetbrains-mono text-2xl font-bold text-orange-400 mb-2">Top 5 Indie Games of 2024</h2>
+                            <p class="text-gray-400 text-sm mb-4">2024-01-10</p>
+                            <p class="text-gray-300 flex-grow">A look at the most exciting indie titles you need to play right now.</p>
+                        </div>
+                    </a>
+
+                    <!-- Simulated Video Games blog post card 2 -->
+                    <a href="#" class="bg-gray-900 rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-orange-400/50 transition-shadow duration-300">
+                        <img
+                            src="https://placehold.co/600x400/333/FF8C00?text=Games"
+                            alt="A placeholder image for a video game blog post"
+                            class="w-full h-48 object-cover object-center"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FF8C00?text=No+Image';"
+                        />
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h2 class="font-jetbrains-mono text-2xl font-bold text-orange-400 mb-2">The History of RPGs</h2>
+                            <p class="text-gray-400 text-sm mb-4">2024-01-25</p>
+                            <p class="text-gray-300 flex-grow">Tracing the evolution of role-playing games from tabletop to modern consoles.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Component (simulated for preview) -->
+    <footer class="bg-gray-950 text-white p-6 mt-8 text-center shadow-inner">
+        <div class="container mx-auto">
+            <p class="text-sm">&copy; 2024 Hoxmot blog. All rights reserved.</p>
+            <p class="text-xs mt-2">Built with Astro</p>
+        </div>
+    </footer>
+
+    <!-- Simple JavaScript for Dropdown Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.getElementById('rss-dropdown-toggle');
+            const dropdownMenu = document.getElementById('rss-dropdown-menu');
+
+            dropdownToggle.addEventListener('click', () => {
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            document.addEventListener('click', (event) => {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
