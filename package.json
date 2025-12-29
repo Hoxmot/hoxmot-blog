@@ -1,0 +1,29 @@
+{
+  "name": "@hoxmot/hoxmot-blog",
+  "type": "module",
+  "version": "1.0.1",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^5.1.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "jsdom": "^24.0.0",
+    "pagefind": "^1.0.4",
+    "vitest": "^1.2.2"
+  }
+}
