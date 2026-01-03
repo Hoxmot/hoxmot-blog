@@ -1,0 +1,45 @@
+---
+
+---
+
+<div
+  id="cookie-banner"
+  class="fixed bottom-0 left-0 right-0 z-50 hidden translate-y-full border-t border-gray-200 bg-bg-card p-4 shadow-lg transition-transform duration-300 dark:border-gray-700"
+>
+  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
+    <div class="text-sm text-text-muted">
+      <p>
+        We use local storage to save your theme preference (Dark/Light mode). By continuing to use
+        this site, you agree to this functionality.
+      </p>
+    </div>
+    <button
+      id="accept-cookies"
+      class="whitespace-nowrap rounded bg-primary px-6 py-2 text-sm font-bold text-text-inverse hover:opacity-90"
+    >
+      Got it
+    </button>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('accept-cookies');
+  const consent = localStorage.getItem('cookie-consent');
+
+  if (!consent) {
+    banner?.classList.remove('hidden');
+    // Small delay for animation effect
+    setTimeout(() => {
+      banner?.classList.remove('translate-y-full');
+    }, 100);
+  }
+
+  acceptBtn?.addEventListener('click', () => {
+    localStorage.setItem('cookie-consent', 'true');
+    banner?.classList.add('translate-y-full');
+    setTimeout(() => {
+      banner?.classList.add('hidden');
+    }, 300);
+  });
+</script>

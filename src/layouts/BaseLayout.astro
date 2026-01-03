@@ -1,0 +1,49 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishDate?: Date;
+}
+
+const { title, description, image, type, publishDate } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      publishDate={publishDate}
+    />
+    <!-- Script to prevent FOUC (Flash of Unstyled Content) for Theme -->
+    <script is:inline>
+      if (
+        localStorage.getItem('theme') === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col bg-bg-main text-text-main antialiased">
+    <!-- Header will be injected here in Task 4 -->
+
+    <main class="w-full flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer will be injected here in Task 4 -->
+
+    <CookieBanner />
+  </body>
+</html>
