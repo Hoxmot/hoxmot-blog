@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "pnpm format && pnpm lint && pnpm test && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
