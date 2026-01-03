@@ -6,51 +6,56 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        /* Light Mode (The "Documentation" Theme) */
-        --color-primary: #ff9900;
-        --color-secondary: #1e90ff;
-        
-        --color-bg-main: #ffffff;
-        --color-bg-card: #f8f9fa;
-        
-        --color-text-main: #1a1a1a;
-        --color-text-muted: #636e72;
-        --color-text-inverse: #ffffff; /* Text on primary buttons */
-    }
+  :root {
+    /* Light Mode (The "Documentation" Theme) */
+    --color-primary: #ff9900;
+    --color-secondary: #1e90ff;
 
-    .dark {
-        /* Dark Mode (The "IDE" Theme) */
-        --color-primary: #ff9900;
-        --color-secondary: #1e90ff;
-        
-        --color-bg-main: #0f172a; /* Deep Slate Blue */
-        --color-bg-card: #1e293b;
-        
-        --color-text-main: #e6edf3;
-        --color-text-muted: #94a3b8;
-        --color-text-inverse: #000000; /* Text on primary buttons in dark mode might still need to be black for contrast */
-    }
+    --color-bg-main: #ffffff;
+    --color-bg-card: #f8f9fa;
 
-    /* Base Element Resets */
-    body {
-        @apply bg-bg-main text-text-main font-sans transition-colors duration-200;
-    }
+    --color-text-main: #1a1a1a;
+    --color-text-muted: #636e72;
+    --color-text-inverse: #ffffff; /* Text on primary buttons */
+  }
 
-    h1, h2, h3, h4, h5, h6 {
-        @apply font-mono font-bold text-secondary dark:text-white;
-    }
+  .dark {
+    /* Dark Mode (The "IDE" Theme) */
+    --color-primary: #ff9900;
+    --color-secondary: #1e90ff;
 
-    code {
-        @apply font-mono;
-    }
+    --color-bg-main: #0f172a; /* Deep Slate Blue */
+    --color-bg-card: #1e293b;
+
+    --color-text-main: #e6edf3;
+    --color-text-muted: #94a3b8;
+    --color-text-inverse: #000000; /* Text on primary buttons in dark mode might still need to be black for contrast */
+  }
+
+  /* Base Element Resets */
+  body {
+    @apply bg-bg-main font-sans text-text-main transition-colors duration-200;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-mono font-bold text-secondary dark:text-white;
+  }
+
+  code {
+    @apply font-mono;
+  }
 }
 
 /* Utility for the "Intro Rule" (First paragraph is Inter, rest are Merriweather) */
 .article-content > p:first-of-type {
-    @apply font-sans text-lg leading-relaxed text-text-muted;
+  @apply font-sans text-lg leading-relaxed text-text-muted;
 }
 
 .article-content > p {
-    @apply font-serif leading-loose;
+  @apply font-serif leading-loose;
 }

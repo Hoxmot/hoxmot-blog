@@ -5,11 +5,8 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://hoxmot.blog', // Placeholder domain
-  integrations: [
-    tailwind(),
-    sitemap()
-  ],
+  integrations: [tailwind(), sitemap()],
   build: {
-    format: 'file'
-  }
+    format: 'file',
+  },
 });
