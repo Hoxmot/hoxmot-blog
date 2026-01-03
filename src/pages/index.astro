@@ -1,5 +1,6 @@
 ---
-// Minimal setup to pass build
+import '../styles/global.css';
+// Minimal setup to pass build & verify styles
 ---
 
 <html lang="en">
@@ -7,10 +8,39 @@
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
-		<title>Hoxmot Blog - Initializing</title>
+		<title>Hoxmot Blog - Style System Check</title>
 	</head>
-	<body>
-		<h1 class="text-3xl font-bold underline">Hoxmot Blog Setup</h1>
-		<p>Phase 1 Complete. System Ready.</p>
+	<body class="p-10">
+		<main class="max-w-2xl mx-auto space-y-8">
+            <!-- Header Check -->
+			<div class="space-y-2">
+                <h1 class="text-4xl">Hoxmot Blog</h1>
+                <p class="font-mono text-primary">System Status: <span class="text-text-main">Online</span></p>
+            </div>
+
+            <!-- Typography Check -->
+            <div class="bg-bg-card p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                <h2 class="text-2xl mb-4">Typography Check</h2>
+                <div class="article-content space-y-4">
+                    <p>This is the "Lead Paragraph". It should be in Inter (Sans-Serif) and look slightly distinct. This validates the Intro Rule.</p>
+                    <p>This is the standard body content. It should be in Merriweather (Serif). It is designed for long-form reading comfort.</p>
+                </div>
+            </div>
+
+            <!-- Color Palette Check -->
+            <div class="grid grid-cols-2 gap-4">
+                <button class="bg-primary text-black px-4 py-2 font-bold rounded hover:opacity-90">
+                    Primary Action
+                </button>
+                <button class="border-2 border-secondary text-secondary px-4 py-2 font-bold rounded font-mono">
+                    Secondary_Action()
+                </button>
+            </div>
+
+            <!-- Dark Mode Simulation (Manual Toggle Check) -->
+            <div class="text-sm text-text-muted">
+                To test Dark Mode, add <code>class="dark"</code> to the <code>&lt;html&gt;</code> tag in your inspector.
+            </div>
+		</main>
 	</body>
 </html>

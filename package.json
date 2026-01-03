@@ -2,7 +2,7 @@
   "name": "@hoxmot/hoxmot-blog",
   "type": "module",
   "version": "1.0.1",
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.27.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -16,6 +16,7 @@
     "@astrojs/check": "^0.9.6",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/typography": "^0.5.19",
     "astro": "^5.16.6",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3"
