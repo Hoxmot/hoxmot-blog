@@ -1,0 +1,133 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { SITE_TITLE, NAV_LINKS } from '../consts';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => {
+  // Exact match for root, startsWith for categories
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+
+<header
+  class="bg-bg-main/95 dark:bg-bg-main/95 sticky top-0 z-40 w-full border-b border-gray-200 backdrop-blur transition-colors duration-200 dark:border-gray-800"
+>
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <!-- Logo & Title -->
+    <div class="flex items-center gap-4">
+      <a href="/" class="group flex items-center gap-2">
+        <span
+          class="font-mono text-2xl font-bold text-primary transition-transform group-hover:scale-110"
+          >ͰΞ</span
+        >
+        <span
+          class="hidden font-mono text-xl font-bold tracking-tight text-text-main transition-colors hover:text-secondary sm:inline-block"
+        >
+          {SITE_TITLE}
+        </span>
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex md:gap-x-8">
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'font-sans text-sm font-semibold transition-colors hover:text-primary',
+              isActive(link.href)
+                ? 'text-secondary underline decoration-2 underline-offset-4'
+                : 'text-text-muted',
+            ]}
+          >
+            {link.text}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Right Side: Search & Theme & Mobile Menu -->
+    <div class="flex items-center gap-4">
+      <!-- Search Trigger (Placeholder for Task 9) -->
+      <button
+        type="button"
+        aria-label="Search"
+        class="rounded-full p-2 text-text-muted transition-colors hover:bg-bg-card hover:text-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
+
+      <ThemeToggle />
+
+      <!-- Mobile Menu Button (Simple implementation) -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="p-2 text-text-muted hover:text-primary md:hidden"
+        aria-label="Open Menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Panel (Hidden by default) -->
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-gray-200 bg-bg-card dark:border-gray-800 md:hidden"
+  >
+    <nav class="flex flex-col space-y-1 px-4 py-4">
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'block rounded-md px-3 py-2 font-sans text-base font-medium transition-colors hover:bg-bg-main hover:text-primary',
+              isActive(link.href) ? 'bg-bg-main text-secondary' : 'text-text-main',
+            ]}
+          >
+            {link.text}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>
