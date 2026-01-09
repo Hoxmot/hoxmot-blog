@@ -1,57 +1,49 @@
 ---
-import '../styles/global.css';
-// Minimal setup to pass build & verify styles
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Hoxmot Blog - Style System Check</title>
-  </head>
-  <body class="p-10">
-    <main class="mx-auto max-w-2xl space-y-8">
-      <!-- Header Check -->
-      <div class="space-y-2">
-        <h1 class="text-4xl">Hoxmot Blog</h1>
-        <p class="font-mono text-primary">
-          System Status: <span class="text-text-main">Online</span>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="mx-auto max-w-4xl space-y-12 p-10">
+    <section class="space-y-4 text-center">
+      <h1 class="text-4xl font-bold md:text-6xl">
+        Welcome to <span class="text-primary">Hoxmot Blog</span>
+      </h1>
+      <p class="text-xl text-text-muted">Software development, video games, and tech.</p>
+    </section>
+
+    <!-- Typography & Theme Check -->
+    <section
+      class="rounded-lg border border-gray-200 bg-bg-card p-8 shadow-sm dark:border-gray-700"
+    >
+      <h2 class="mb-6 border-b border-gray-200 pb-2 text-2xl dark:border-gray-700">
+        Style System Status
+      </h2>
+
+      <div class="article-content space-y-4">
+        <p>
+          <strong>Success!</strong> You are now viewing the <code>BaseLayout</code>. The Header
+          above and Footer below are persistent. This paragraph uses the <strong>Inter</strong> font (Intro
+          Rule).
+        </p>
+        <p>
+          This paragraph uses the <strong>Merriweather</strong> font (Body Rule). Try toggling the Theme
+          button in the header to see the "Fire & Ice" palette adapt to Dark Mode.
         </p>
       </div>
 
-      <!-- Typography Check -->
-      <div class="rounded-lg border border-gray-200 bg-bg-card p-6 dark:border-gray-700">
-        <h2 class="mb-4 text-2xl">Typography Check</h2>
-        <div class="article-content space-y-4">
-          <p>
-            This is the "Lead Paragraph". It should be in Inter (Sans-Serif) and look slightly
-            distinct. This validates the Intro Rule.
-          </p>
-          <p>
-            This is the standard body content. It should be in Merriweather (Serif). It is designed
-            for long-form reading comfort.
-          </p>
-        </div>
-      </div>
-
-      <!-- Color Palette Check -->
-      <div class="grid grid-cols-2 gap-4">
-        <button class="rounded bg-primary px-4 py-2 font-bold text-black hover:opacity-90">
-          Primary Action
+      <div class="mt-8 flex gap-4">
+        <button
+          class="rounded bg-primary px-6 py-2 font-bold text-text-inverse transition-opacity hover:opacity-90"
+        >
+          Primary Button
         </button>
         <button
-          class="rounded border-2 border-secondary px-4 py-2 font-mono font-bold text-secondary"
+          class="hover:bg-secondary/10 rounded border-2 border-secondary px-6 py-2 font-mono font-bold text-secondary transition-colors"
         >
-          Secondary_Action()
+          secondary_btn()
         </button>
       </div>
-
-      <!-- Dark Mode Simulation (Manual Toggle Check) -->
-      <div class="text-sm text-text-muted">
-        To test Dark Mode, add <code>class="dark"</code> to the <code>&lt;html&gt;</code> tag in your
-        inspector.
-      </div>
-    </main>
-  </body>
-</html>
+    </section>
+  </div>
+</BaseLayout>
