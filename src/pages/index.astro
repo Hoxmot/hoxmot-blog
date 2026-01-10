@@ -1,49 +1,72 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+// Fetch and Sort Posts
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// 1. Hero Post (The absolute newest)
+const heroPost = allPosts[0];
+
+// 2. Filter by Category (taking top 3 excluding the hero if needed, but usually just top 3 is fine)
+// Note: We include the hero in the category list if it matches, to ensure the category list feels "fresh"
+const softwarePosts = allPosts.filter((p) => p.data.category === 'software').slice(0, 3);
+const gamesPosts = allPosts.filter((p) => p.data.category === 'games').slice(0, 3);
+const techPosts = allPosts.filter((p) => p.data.category === 'tech').slice(0, 3);
+
+const categories = [
+  { title: 'Software Development', slug: 'software', posts: softwarePosts },
+  { title: 'Video Games', slug: 'games', posts: gamesPosts },
+  { title: 'Tech & Gear', slug: 'tech', posts: techPosts },
+];
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <div class="mx-auto max-w-4xl space-y-12 p-10">
-    <section class="space-y-4 text-center">
-      <h1 class="text-4xl font-bold md:text-6xl">
-        Welcome to <span class="text-primary">Hoxmot Blog</span>
-      </h1>
-      <p class="text-xl text-text-muted">Software development, video games, and tech.</p>
-    </section>
+  <div class="mx-auto max-w-7xl space-y-20 px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Hero Section -->
+    {
+      heroPost && (
+        <section class="space-y-6">
+          <div class="flex items-center gap-2">
+            <span class="h-8 w-1 rounded-full bg-primary" />
+            <h2 class="font-mono text-2xl font-bold uppercase tracking-wider text-text-main">
+              Latest Drop
+            </h2>
+          </div>
+          <ArticleCard post={heroPost} large={true} />
+        </section>
+      )
+    }
 
-    <!-- Typography & Theme Check -->
-    <section
-      class="rounded-lg border border-gray-200 bg-bg-card p-8 shadow-sm dark:border-gray-700"
-    >
-      <h2 class="mb-6 border-b border-gray-200 pb-2 text-2xl dark:border-gray-700">
-        Style System Status
-      </h2>
+    <!-- Category Sections -->
+    {
+      categories.map(
+        (cat) =>
+          cat.posts.length > 0 && (
+            <section class="space-y-8">
+              <div class="flex items-end justify-between border-b border-gray-200 pb-4 dark:border-gray-800">
+                <h2 class="font-mono text-3xl font-bold text-text-main">{cat.title}</h2>
+                <a
+                  href={`/category/${cat.slug}`}
+                  class="group flex items-center gap-2 font-mono text-sm font-bold text-secondary transition-colors hover:text-primary"
+                >
+                  View All {cat.title}
+                  <span class="transition-transform group-hover:translate-x-1">→</span>
+                </a>
+              </div>
 
-      <div class="article-content space-y-4">
-        <p>
-          <strong>Success!</strong> You are now viewing the <code>BaseLayout</code>. The Header
-          above and Footer below are persistent. This paragraph uses the <strong>Inter</strong> font (Intro
-          Rule).
-        </p>
-        <p>
-          This paragraph uses the <strong>Merriweather</strong> font (Body Rule). Try toggling the Theme
-          button in the header to see the "Fire & Ice" palette adapt to Dark Mode.
-        </p>
-      </div>
-
-      <div class="mt-8 flex gap-4">
-        <button
-          class="rounded bg-primary px-6 py-2 font-bold text-text-inverse transition-opacity hover:opacity-90"
-        >
-          Primary Button
-        </button>
-        <button
-          class="hover:bg-secondary/10 rounded border-2 border-secondary px-6 py-2 font-mono font-bold text-secondary transition-colors"
-        >
-          secondary_btn()
-        </button>
-      </div>
-    </section>
+              <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {cat.posts.map((post) => (
+                  <ArticleCard post={post} />
+                ))}
+              </div>
+            </section>
+          )
+      )
+    }
   </div>
 </BaseLayout>

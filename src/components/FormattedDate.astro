@@ -1,0 +1,12 @@
+---
+interface Props {
+  date: Date;
+  className?: string;
+}
+
+const { date, className = '' } = Astro.props;
+---
+
+<time datetime={date.toISOString()} class:list={['font-sans text-sm text-text-muted', className]}>
+  {date.toISOString().split('T')[0]}
+</time>
