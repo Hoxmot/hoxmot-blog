@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { SOCIAL_LINKS, NAV_LINKS, SITE_TITLE } from '../consts';
 
 describe('Configuration Data', () => {
@@ -6,11 +6,26 @@ describe('Configuration Data', () => {
     expect(SITE_TITLE).toBe('Hoxmot Blog');
   });
 
-  it('should have valid social links', () => {
-    expect(SOCIAL_LINKS.twitter).toContain('twitter.com');
-    expect(SOCIAL_LINKS.discord).toContain('discord');
-    expect(SOCIAL_LINKS.bluesky).toContain('bsky');
-    expect(SOCIAL_LINKS.mastodon).toContain('mastodon');
+  describe('should have valid social links', () => {
+    let skipCurrentTest: () => never;
+
+    beforeEach(({ skip }) => {
+      skipCurrentTest = skip;
+    });
+
+    it.each([
+      { link: SOCIAL_LINKS.twitter, domain: 'twitter.com' },
+      { link: SOCIAL_LINKS.discord, domain: 'discord' },
+      { link: SOCIAL_LINKS.discord, domain: 'discord' },
+      { link: SOCIAL_LINKS.bluesky, domain: 'bsky' },
+      { link: SOCIAL_LINKS.mastodon, domain: 'mastodon' },
+      { link: SOCIAL_LINKS.linkedin, domain: 'linkedin' },
+    ])('should have valid social link for $domain', ({ link, domain }) => {
+      if (!link) {
+        skipCurrentTest();
+      }
+      expect(link).toContain(domain);
+    });
   });
 
   it('should have the correct navigation structure', () => {

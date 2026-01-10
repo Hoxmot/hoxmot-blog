@@ -6,12 +6,18 @@ export const SITE_DESCRIPTION = 'Software development, video games, and tech.';
  */
 export const SHOW_COMMENTS = true;
 
-export const SOCIAL_LINKS = {
+type SupportedSocials = 'twitter' | 'discord' | 'bluesky' | 'mastodon' | 'linkedin';
+/**
+ * A list of all the social media I'm using.
+ *
+ * If the link is undefined, the icon for it in the footer won't be displayed.
+ */
+export const SOCIAL_LINKS: Record<SupportedSocials, string | undefined> = {
   twitter: 'https://twitter.com/hoxmot',
-  discord: 'https://discord.gg/hoxmot', // Placeholder
+  discord: undefined,
   bluesky: 'https://bsky.app/profile/hoxmot.bsky.social',
-  mastodon: 'https://mastodon.social/@hoxmot',
-  linkedin: 'https://www.linkedin.com/in/hoxmot', // Added for Article share consistency
+  mastodon: undefined,
+  linkedin: undefined,
 };
 
 export const NAV_LINKS = [
