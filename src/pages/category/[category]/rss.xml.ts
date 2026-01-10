@@ -11,6 +11,10 @@ export async function getStaticPaths() {
 }
 
 export async function GET(context: APIContext) {
+  if (!context.site) {
+    throw new Error('site is not defined in astro.config.mjs');
+  }
+
   const category = context.params.category;
   const posts = await getCollection('blog');
   const filteredPosts = posts.filter((post) => post.data.category === category);
@@ -18,7 +22,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: `${category?.charAt(0).toUpperCase() + category!.slice(1)} - ${SITE_TITLE}`,
     description: `Latest ${category} articles from ${SITE_TITLE}`,
-    site: context.site || 'https://hoxmot.blog',
+    site: context.site,
     items: filteredPosts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.pubDate,

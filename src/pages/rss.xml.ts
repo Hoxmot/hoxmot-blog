@@ -4,11 +4,15 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
+  if (!context.site) {
+    throw new Error('site is not defined in astro.config.mjs');
+  }
+
   const posts = await getCollection('blog');
   return rss({
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    site: context.site || 'https://hoxmot.blog', // Fallback if site not set in astro.config
+    site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.pubDate,
