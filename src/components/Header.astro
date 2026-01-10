@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import Search from './Search.astro';
 import { SITE_TITLE, NAV_LINKS } from '../consts';
 
 const currentPath = Astro.url.pathname;
@@ -50,11 +51,12 @@ const isActive = (href: string) => {
 
     <!-- Right Side: Search & Theme & Mobile Menu -->
     <div class="flex items-center gap-4">
-      <!-- Search Trigger (Placeholder for Task 9) -->
+      <!-- Search Trigger -->
       <button
+        id="search-trigger"
         type="button"
         aria-label="Search"
-        class="rounded-full p-2 text-text-muted transition-colors hover:bg-bg-card hover:text-primary"
+        class="rounded-full p-2 text-text-muted transition-colors hover:bg-bg-card hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +76,7 @@ const isActive = (href: string) => {
 
       <ThemeToggle />
 
-      <!-- Mobile Menu Button (Simple implementation) -->
+      <!-- Mobile Menu Button -->
       <button
         id="mobile-menu-btn"
         type="button"
@@ -100,7 +102,7 @@ const isActive = (href: string) => {
     </div>
   </div>
 
-  <!-- Mobile Navigation Panel (Hidden by default) -->
+  <!-- Mobile Navigation Panel -->
   <div
     id="mobile-menu"
     class="hidden border-t border-gray-200 bg-bg-card dark:border-gray-800 md:hidden"
@@ -121,13 +123,25 @@ const isActive = (href: string) => {
       }
     </nav>
   </div>
+
+  <!-- Search Modal -->
+  <Search />
 </header>
 
 <script>
+  // Mobile Menu Logic
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
 
   btn?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
+  });
+
+  // Search Modal Logic
+  const searchTrigger = document.getElementById('search-trigger');
+  const searchDialog = document.getElementById('search-dialog') as HTMLDialogElement;
+
+  searchTrigger?.addEventListener('click', () => {
+    searchDialog?.showModal();
   });
 </script>

@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "pnpm format && pnpm lint && pnpm test:coverage && astro build",
+    "build": "pnpm format && pnpm lint && pnpm test:coverage && astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
     "format": "prettier --write ."
   },
   "dependencies": {
