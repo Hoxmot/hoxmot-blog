@@ -1,6 +1,11 @@
 export const SITE_TITLE = 'Hoxmot Blog';
 export const SITE_DESCRIPTION = 'Software development, video games, and tech.';
 
+/**
+ * Feature flag for comments section
+ */
+export const SHOW_COMMENTS = true;
+
 export const SOCIAL_LINKS = {
   twitter: 'https://twitter.com/hoxmot',
   discord: 'https://discord.gg/hoxmot', // Placeholder

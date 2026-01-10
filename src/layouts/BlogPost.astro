@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ShareButtons from '../components/ShareButtons.astro';
+import { SHOW_COMMENTS } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -77,12 +78,16 @@ const { title, description, pubDate, updatedDate, heroImage, category } = Astro.
       <ShareButtons title={title} url={Astro.url} />
 
       <!-- Comments Placeholder (Task requirement) -->
-      <div
-        id="comments-section"
-        class="min-h-[100px] rounded-lg border border-dashed border-gray-300 p-8 text-center dark:border-gray-700"
-      >
-        <p class="text-text-muted">Comments integration coming soon.</p>
-      </div>
+      {
+        SHOW_COMMENTS && (
+          <div
+            id="comments-section"
+            class="min-h-[100px] rounded-lg border border-dashed border-gray-300 p-8 text-center dark:border-gray-700"
+          >
+            <p class="text-text-muted">Comments integration coming soon.</p>
+          </div>
+        )
+      }
     </footer>
   </article>
 </BaseLayout>
