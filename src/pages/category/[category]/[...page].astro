@@ -1,0 +1,69 @@
+---
+import type { PaginateFunction } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { SITE_TITLE } from '../../../consts';
+
+export const getStaticPaths = async ({ paginate }: { paginate: PaginateFunction }) => {
+  const allPosts = await getCollection('blog');
+
+  // Define the valid categories to generate pages for
+  const categories = ['software', 'games', 'tech'] as const;
+
+  // Generate paths for each category
+  return categories.flatMap((category) => {
+    const filteredPosts = allPosts.filter((post) => post.data.category === category);
+
+    // Sort by date descending
+    filteredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+    return paginate(filteredPosts, {
+      params: { category },
+      pageSize: 6, // Articles per page
+    });
+  });
+};
+
+const { page } = Astro.props;
+const { category } = Astro.params;
+
+// Formatting category title (e.g., "software" -> "Software")
+const titleCaseCategory = category.charAt(0).toUpperCase() + category.slice(1);
+const pageTitle = `${titleCaseCategory} Articles | ${SITE_TITLE}`;
+const description = `Browse all ${category} articles on Hoxmot Blog.`;
+---
+
+<BaseLayout title={pageTitle} description={description}>
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-12 border-b border-gray-200 pb-6 dark:border-gray-800">
+      <h1 class="font-mono text-4xl font-bold text-text-main">
+        {titleCaseCategory}
+      </h1>
+      <p class="mt-4 font-sans text-lg text-text-muted">
+        Browsing {category} articles. Page {page.currentPage} of {page.lastPage}.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    {
+      page.data.length > 0 ? (
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {page.data.map((post: CollectionEntry<'blog'>) => (
+            <ArticleCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="py-20 text-center">
+          <p class="text-xl text-text-muted">No articles found in this category yet.</p>
+        </div>
+      )
+    }
+
+    <!-- Pagination Controls -->
+    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+  </div>
+</BaseLayout>
