@@ -1,0 +1,88 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import ShareButtons from '../components/ShareButtons.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage, category } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  type="article"
+  publishDate={pubDate}
+>
+  <article class="mx-auto max-w-4xl px-6 py-12 lg:px-8">
+    <!-- Article Header -->
+    <header class="mb-10 space-y-6 text-center">
+      <!-- Category Badge -->
+      <div class="flex justify-center">
+        <a
+          href={`/category/${category}`}
+          class="bg-primary/10 hover:bg-primary/20 inline-flex items-center rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wide text-primary transition-colors"
+        >
+          {category}
+        </a>
+      </div>
+
+      <!-- Title -->
+      <h1 class="font-mono text-4xl font-bold tracking-tight text-text-main sm:text-5xl">
+        {title}
+      </h1>
+
+      <!-- Metadata -->
+      <div class="flex items-center justify-center gap-4 text-sm text-text-muted">
+        <FormattedDate date={pubDate} />
+        {
+          updatedDate && (
+            <div class="italic">
+              (Updated on <FormattedDate date={updatedDate} />)
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Hero Image -->
+      {
+        heroImage && (
+          <div class="relative mt-8 aspect-video w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
+            <img
+              width={1020}
+              height={510}
+              src={heroImage}
+              alt=""
+              class="h-full w-full object-cover"
+            />
+          </div>
+        )
+      }
+    </header>
+
+    <!-- Main Content -->
+    <!-- 
+            The 'article-content' class triggers the "Intro Rule" in global.css:
+            First <p> -> Inter (Sans), Rest -> Merriweather (Serif)
+            'prose' -> Tailwind Typography plugin for standard formatting
+        -->
+    <div class="article-content prose prose-lg prose-slate mx-auto max-w-prose dark:prose-invert">
+      <slot />
+    </div>
+
+    <!-- Footer: Share & Comments placeholder -->
+    <footer class="mx-auto mt-16 max-w-prose space-y-8">
+      <ShareButtons title={title} url={Astro.url} />
+
+      <!-- Comments Placeholder (Task requirement) -->
+      <div
+        id="comments-section"
+        class="min-h-[100px] rounded-lg border border-dashed border-gray-300 p-8 text-center dark:border-gray-700"
+      >
+        <p class="text-text-muted">Comments integration coming soon.</p>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>
