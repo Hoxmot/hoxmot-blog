@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background: Deep Slate Blue (Theme Dark Background) -->
+  <rect width="128" height="128" rx="24" fill="#0f172a" />
+  
+  <!-- Text: Amazon Orange (Theme Primary) -->
+  <text 
+    x="50%" 
+    y="50%" 
+    font-family="'JetBrains Mono', monospace" 
+    font-weight="bold" 
+    font-size="90" 
+    fill="#ff9900" 
+    text-anchor="middle" 
+    dominant-baseline="central" 
+    dy="4"
+  >
+    ͰΞ
+  </text>
+</svg>
