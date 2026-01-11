@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, CATEGORIES } from '../consts';
 
 // Fetch and Sort Posts
 const allPosts = (await getCollection('blog')).sort(
@@ -12,17 +12,15 @@ const allPosts = (await getCollection('blog')).sort(
 // 1. Hero Post (The absolute newest)
 const heroPost = allPosts[0];
 
-// 2. Filter by Category (taking top 3 excluding the hero if needed, but usually just top 3 is fine)
-// Note: We include the hero in the category list if it matches, to ensure the category list feels "fresh"
-const softwarePosts = allPosts.filter((p) => p.data.category === 'software').slice(0, 3);
-const gamesPosts = allPosts.filter((p) => p.data.category === 'games').slice(0, 3);
-const techPosts = allPosts.filter((p) => p.data.category === 'tech').slice(0, 3);
+// 2. Filter by Category dynamically based on centralized config
+const categorySections = CATEGORIES.map((category) => {
+  const posts = allPosts.filter((p) => p.data.category === category.slug).slice(0, 3);
 
-const categories = [
-  { title: 'Software Development', slug: 'software', posts: softwarePosts },
-  { title: 'Video Games', slug: 'games', posts: gamesPosts },
-  { title: 'Tech & Gear', slug: 'tech', posts: techPosts },
-];
+  return {
+    ...category,
+    posts,
+  };
+});
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -72,23 +70,23 @@ const categories = [
 
     <!-- Category Sections -->
     {
-      categories.map(
-        (cat) =>
-          cat.posts.length > 0 && (
+      categorySections.map(
+        (category) =>
+          category.posts.length > 0 && (
             <section class="space-y-8">
               <div class="flex items-end justify-between border-b border-gray-200 pb-4 dark:border-gray-800">
-                <h2 class="font-mono text-3xl font-bold text-text-main">{cat.title}</h2>
+                <h2 class="font-mono text-3xl font-bold text-text-main">{category.title}</h2>
                 <a
-                  href={`/category/${cat.slug}`}
+                  href={`/category/${category.slug}`}
                   class="group flex items-center gap-2 font-mono text-sm font-bold text-secondary transition-colors hover:text-primary"
                 >
-                  View All {cat.title}
+                  View All {category.title}
                   <span class="transition-transform group-hover:translate-x-1">→</span>
                 </a>
               </div>
 
               <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {cat.posts.map((post) => (
+                {category.posts.map((post) => (
                   <ArticleCard post={post} />
                 ))}
               </div>

@@ -6,6 +6,15 @@ export const SITE_DESCRIPTION = 'Software development, video games, and tech.';
  */
 export const SHOW_COMMENTS = true;
 
+/**
+ * Centralized Category Definitions
+ */
+export const CATEGORIES = [
+  { title: 'Software Development', slug: 'software', navLabel: 'Software' },
+  { title: 'Video Games', slug: 'games', navLabel: 'Games' },
+  { title: 'Tech & Gear', slug: 'tech', navLabel: 'Tech' },
+] as const;
+
 type SupportedSocials = 'twitter' | 'discord' | 'bluesky' | 'mastodon' | 'linkedin';
 /**
  * A list of all the social media I'm using.
@@ -21,8 +30,9 @@ export const SOCIAL_LINKS: Record<SupportedSocials, string | undefined> = {
 };
 
 export const NAV_LINKS = [
-  { text: 'Software', href: '/category/software' },
-  { text: 'Games', href: '/category/games' },
-  { text: 'Tech', href: '/category/tech' },
+  ...CATEGORIES.map((category) => ({
+    text: category.navLabel,
+    href: `/category/${category.slug}`,
+  })),
   { text: 'About', href: '/about' },
 ];
