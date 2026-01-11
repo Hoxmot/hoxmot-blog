@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
+import { cleanSlug } from '../utils/slugUtils';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { post, large = false } = Astro.props;
+const slug = cleanSlug(post.id);
 ---
 
 <article
@@ -53,7 +55,7 @@ const { post, large = false } = Astro.props;
             large ? 'text-2xl md:text-4xl' : 'text-xl',
           ]}
         >
-          <a href={`/blog/${post.id}`}>
+          <a href={`/blog/${slug}`}>
             {post.data.title}
           </a>
         </h3>

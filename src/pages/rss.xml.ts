@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import type { APIContext } from 'astro';
+import { cleanSlug } from '../utils/slugUtils';
 
 export const GET = async (context: APIContext) => {
   if (!context.site) {
@@ -17,7 +18,7 @@ export const GET = async (context: APIContext) => {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      link: `/blog/${post.id}/`,
+      link: `/blog/${cleanSlug(post.id)}/`,
     })),
     customData: `<language>en-us</language>`,
   });
