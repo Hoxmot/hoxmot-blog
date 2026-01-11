@@ -15,7 +15,15 @@ export const CATEGORIES = [
   { title: 'Tech & Gear', slug: 'tech', navLabel: 'Tech' },
 ] as const;
 
-type SupportedSocials = 'twitter' | 'discord' | 'bluesky' | 'mastodon' | 'linkedin';
+type SupportedSocials =
+  | 'twitter'
+  | 'discord'
+  | 'bluesky'
+  | 'mastodon'
+  | 'linkedin'
+  | 'github'
+  | 'tiktok'
+  | 'instagram';
 /**
  * A list of all the social media I'm using.
  *
@@ -23,10 +31,13 @@ type SupportedSocials = 'twitter' | 'discord' | 'bluesky' | 'mastodon' | 'linked
  */
 export const SOCIAL_LINKS: Record<SupportedSocials, string | undefined> = {
   twitter: 'https://twitter.com/hoxmot',
+  github: 'https://github.com/hoxmot',
   discord: undefined,
   bluesky: 'https://bsky.app/profile/hoxmot.bsky.social',
   mastodon: undefined,
   linkedin: undefined,
+  tiktok: undefined,
+  instagram: undefined,
 };
 
 export const NAV_LINKS = [
