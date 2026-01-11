@@ -3,37 +3,36 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleCard from '../../../components/ArticleCard.astro';
 import Pagination from '../../../components/Pagination.astro';
-import { SITE_TITLE } from '../../../consts';
-import type { PaginateFunction } from 'astro';
+import { SITE_TITLE, CATEGORIES } from '../../../consts';
 import type { CollectionEntry } from 'astro:content';
+import type { PaginateFunction } from 'astro';
 
-export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+export const getStaticPaths = async ({ paginate }: { paginate: PaginateFunction }) => {
   const allPosts = await getCollection('blog');
 
-  // Define the valid categories to generate pages for
-  const categories = ['software', 'games', 'tech'] as const;
-
-  // Generate paths for each category
-  return categories.flatMap((category) => {
-    const filteredPosts = allPosts.filter((post) => post.data.category === category);
+  // Use the centralized CATEGORIES config to define valid routes
+  return CATEGORIES.flatMap((category) => {
+    const filteredPosts = allPosts.filter((post) => post.data.category === category.slug);
 
     // Sort by date descending
-    filteredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    filteredPosts.sort((p1, p2) => p2.data.pubDate.valueOf() - p1.data.pubDate.valueOf());
 
     return paginate(filteredPosts, {
-      params: { category },
+      params: { category: category.slug },
       pageSize: 6, // Articles per page
     });
   });
-}
+};
 
 const { page } = Astro.props;
 const { category } = Astro.params;
 
-// Formatting category title (e.g., "software" -> "Software")
-const titleCaseCategory = category.charAt(0).toUpperCase() + category.slice(1);
-const pageTitle = `${titleCaseCategory} Articles | ${SITE_TITLE}`;
-const description = `Browse all ${category} articles on Hoxmot Blog.`;
+// Lookup the full display title from config (e.g., "software" -> "Software Development")
+const currentCategory = CATEGORIES.find((c) => c.slug === category);
+const categoryDisplayName = currentCategory ? currentCategory.title : category;
+
+const pageTitle = `${categoryDisplayName} Articles | ${SITE_TITLE}`;
+const description = `Browse all ${categoryDisplayName} articles on Hoxmot Blog.`;
 ---
 
 <BaseLayout title={pageTitle} description={description}>
@@ -44,10 +43,10 @@ const description = `Browse all ${category} articles on Hoxmot Blog.`;
     >
       <div>
         <h1 class="font-mono text-4xl font-bold text-text-main">
-          {titleCaseCategory}
+          {categoryDisplayName}
         </h1>
         <p class="mt-4 font-sans text-lg text-text-muted">
-          Browsing {category} articles. Page {page.currentPage} of {page.lastPage}.
+          Browsing {categoryDisplayName} articles. Page {page.currentPage} of {page.lastPage}.
         </p>
       </div>
 
@@ -63,7 +62,7 @@ const description = `Browse all ${category} articles on Hoxmot Blog.`;
             stroke-width="2"
             d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
         </svg>
-        <span>{titleCaseCategory} RSS</span>
+        <span>{categoryDisplayName} RSS</span>
       </a>
     </div>
 
