@@ -18,10 +18,30 @@ const isActive = (href: string) => {
     <!-- Logo & Title -->
     <div class="flex items-center gap-4">
       <a href="/" class="group flex items-center gap-2">
-        <span
-          class="font-mono text-2xl font-bold text-primary transition-transform group-hover:scale-110"
-          >ͰΞ</span
+        <!-- Logo Mark: Inline SVG to match Favicon -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 128 128"
+          class="h-10 w-10 shadow-sm transition-transform group-hover:scale-110"
         >
+          <!-- Background: Deep Slate Blue (Theme Dark Background) -->
+          <rect width="128" height="128" rx="24" fill="#0f172a"></rect>
+          <!-- Text: Amazon Orange (Theme Primary) -->
+          <text
+            x="50%"
+            y="50%"
+            font-family="'JetBrains Mono', monospace"
+            font-weight="bold"
+            font-size="90"
+            fill="#ff9900"
+            text-anchor="middle"
+            dominant-baseline="central"
+            dy="4"
+          >
+            ͰΞ
+          </text>
+        </svg>
+        <!-- Site Title -->
         <span
           class="hidden font-mono text-xl font-bold tracking-tight text-text-main transition-colors hover:text-secondary sm:inline-block"
         >
