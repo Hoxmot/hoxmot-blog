@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import type { APIContext } from 'astro';
 
-export async function GET(context: APIContext) {
+export const GET = async (context: APIContext) => {
   if (!context.site) {
     throw new Error('site is not defined in astro.config.mjs');
   }
@@ -21,4 +21,4 @@ export async function GET(context: APIContext) {
     })),
     customData: `<language>en-us</language>`,
   });
-}
+};

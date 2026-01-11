@@ -3,14 +3,14 @@ import { getCollection } from 'astro:content';
 import { SITE_TITLE } from '../../../consts';
 import type { APIContext } from 'astro';
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const categories = ['software', 'games', 'tech'];
   return categories.map((category) => ({
     params: { category },
   }));
-}
+};
 
-export async function GET(context: APIContext) {
+export const GET = async (context: APIContext) => {
   if (!context.site) {
     throw new Error('site is not defined in astro.config.mjs');
   }
@@ -31,4 +31,4 @@ export async function GET(context: APIContext) {
     })),
     customData: `<language>en-us</language>`,
   });
-}
+};
