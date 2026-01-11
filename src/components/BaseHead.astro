@@ -27,6 +27,16 @@ const {
 const fullTitle = generateTitle(title);
 const imageURL = generateImageURL(image, Astro.site);
 const siteTitle = 'Hoxmot Blog';
+
+// RSS Auto-discovery Logic
+// Check if current path is a category page to serve specific feed, else serve global
+const currentPath = Astro.url.pathname;
+const isCategoryPage = currentPath.startsWith('/category/');
+const categorySlug = isCategoryPage ? currentPath.split('/')[2] : null;
+const rssHref = categorySlug ? `/category/${categorySlug}/rss.xml` : '/rss.xml';
+const rssTitle = categorySlug
+  ? `${categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1)} - ${siteTitle}`
+  : siteTitle;
 ---
 
 <!-- Global Metadata -->
@@ -37,6 +47,9 @@ const siteTitle = 'Hoxmot Blog';
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+<!-- RSS Feed Auto-Discovery -->
+<link rel="alternate" type="application/rss+xml" title={rssTitle} href={rssHref} />
 
 <!-- Primary Meta Tags -->
 <title>{fullTitle}</title>

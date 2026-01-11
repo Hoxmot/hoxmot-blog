@@ -27,6 +27,34 @@ const categories = [
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <div class="mx-auto max-w-7xl space-y-20 px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Welcome Header & Global RSS -->
+    <div
+      class="flex flex-col justify-between gap-4 border-b border-gray-200 pb-6 dark:border-gray-800 md:flex-row md:items-end"
+    >
+      <div>
+        <h1 class="font-mono text-4xl font-bold text-text-main">
+          {SITE_TITLE}
+        </h1>
+        <p class="mt-4 font-sans text-lg text-text-muted">
+          {SITE_DESCRIPTION}
+        </p>
+      </div>
+
+      <a
+        href="/rss.xml"
+        class="hover:bg-primary/10 inline-flex items-center gap-2 rounded-md bg-gray-100 px-3 py-1.5 font-mono text-sm font-bold text-text-muted transition-colors hover:text-primary dark:bg-gray-800"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+        </svg>
+        <span>Global RSS</span>
+      </a>
+    </div>
+
     <!-- Hero Section -->
     {
       heroPost && (

@@ -1,13 +1,13 @@
 ---
-import type { PaginateFunction } from 'astro';
-import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleCard from '../../../components/ArticleCard.astro';
 import Pagination from '../../../components/Pagination.astro';
 import { SITE_TITLE } from '../../../consts';
+import type { PaginateFunction } from 'astro';
+import type { CollectionEntry } from 'astro:content';
 
-export const getStaticPaths = async ({ paginate }: { paginate: PaginateFunction }) => {
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
   const allPosts = await getCollection('blog');
 
   // Define the valid categories to generate pages for
@@ -25,7 +25,7 @@ export const getStaticPaths = async ({ paginate }: { paginate: PaginateFunction 
       pageSize: 6, // Articles per page
     });
   });
-};
+}
 
 const { page } = Astro.props;
 const { category } = Astro.params;
@@ -39,13 +39,32 @@ const description = `Browse all ${category} articles on Hoxmot Blog.`;
 <BaseLayout title={pageTitle} description={description}>
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
     <!-- Header -->
-    <div class="mb-12 border-b border-gray-200 pb-6 dark:border-gray-800">
-      <h1 class="font-mono text-4xl font-bold text-text-main">
-        {titleCaseCategory}
-      </h1>
-      <p class="mt-4 font-sans text-lg text-text-muted">
-        Browsing {category} articles. Page {page.currentPage} of {page.lastPage}.
-      </p>
+    <div
+      class="mb-12 flex flex-col justify-between gap-4 border-b border-gray-200 pb-6 dark:border-gray-800 md:flex-row md:items-end"
+    >
+      <div>
+        <h1 class="font-mono text-4xl font-bold text-text-main">
+          {titleCaseCategory}
+        </h1>
+        <p class="mt-4 font-sans text-lg text-text-muted">
+          Browsing {category} articles. Page {page.currentPage} of {page.lastPage}.
+        </p>
+      </div>
+
+      <!-- Category RSS Button -->
+      <a
+        href={`/category/${category}/rss.xml`}
+        class="hover:bg-primary/10 inline-flex items-center gap-2 rounded-md bg-gray-100 px-3 py-1.5 font-mono text-sm font-bold text-text-muted transition-colors hover:text-primary dark:bg-gray-800"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+        </svg>
+        <span>{titleCaseCategory} RSS</span>
+      </a>
     </div>
 
     <!-- Grid -->
