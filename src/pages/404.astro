@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<BaseLayout title={`404 - Not Found | ${SITE_TITLE}`} description="Page not found">
+  <div class="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
+    <h1 class="mb-4 font-mono text-9xl font-bold text-primary">404</h1>
+    <h2 class="mb-6 font-mono text-3xl font-bold text-text-main">System Error: Page Not Found</h2>
+
+    <div class="article-content mx-auto mb-10 max-w-md">
+      <p class="text-xl text-text-muted">
+        Looks like you've ventured into null territory. The endpoint you are trying to access might
+        have been deprecated, moved, or never existed in this build.
+      </p>
+    </div>
+
+    <a
+      href="/"
+      class="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3 font-mono text-base font-bold text-text-inverse transition-opacity hover:opacity-90"
+    >
+      Return to Base
+    </a>
+  </div>
+</BaseLayout>
