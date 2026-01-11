@@ -4,7 +4,7 @@ export const SITE_DESCRIPTION = 'Software development, video games, and tech.';
 /**
  * Feature flag for comments section
  */
-export const SHOW_COMMENTS = true;
+export const SHOW_COMMENTS = false;
 
 /**
  * Centralized Category Definitions
