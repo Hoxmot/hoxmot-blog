@@ -1,0 +1,32 @@
+---
+import { getEntry } from 'astro:content';
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../consts';
+
+// Fetch the 'about' entry from the 'pages' collection
+const aboutPage = await getEntry('pages', 'about');
+
+if (!aboutPage) {
+  throw new Error('Could not find about page content');
+}
+
+const { Content } = await render(aboutPage);
+const { title, description } = aboutPage.data;
+---
+
+<BaseLayout title={`${title} | ${SITE_TITLE}`} description={description}>
+  <div class="mx-auto max-w-4xl px-6 py-12 lg:px-8">
+    <h1 class="mb-8 font-mono text-4xl font-bold tracking-tight text-text-main sm:text-5xl">
+      {title}
+    </h1>
+
+    <!-- 
+            The 'article-content' class ensures the first paragraph uses Inter (Sans) 
+            and the rest use Merriweather (Serif).
+        -->
+    <div class="article-content prose prose-lg prose-slate mx-auto max-w-prose dark:prose-invert">
+      <Content />
+    </div>
+  </div>
+</BaseLayout>
