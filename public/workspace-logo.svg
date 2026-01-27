@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1024 1024"
+   width="1024"
+   height="1024"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.60766989"
+     inkscape:cx="399.88817"
+     inkscape:cy="523.31044"
+     inkscape:window-width="1512"
+     inkscape:window-height="831"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2"
+     inkscape:export-bgcolor="#ffffff00" />
+  <!-- 
+    Master Logo File
+    Canvas Size: 1024x1024 (Scaled up 2x from 512) 
+    This high resolution is ideal for master editing and converting to paths.
+  -->
+  <!-- Background: rx scaled from 96 -> 192 -->
+  <rect
+     width="1024"
+     height="1024"
+     rx="192"
+     fill="#0f172a"
+     id="rect1"
+     inkscape:label="Background" />
+  <path
+     d="m 547.91953,525.31998 h -229.68 v 179.28 q 0,33.12 67.68,33.12 v 41.76 h -241.92 v -41.76 q 64.08,0 64.08,-33.12 v -384.48 q 0,-33.12 -64.08,-33.12 v -42.48 h 241.92 v 42.48 q -67.68,0 -67.68,33.12 v 152.64 h 229.68 z"
+     id="text8"
+     style="font-size:720px;font-family:'Sofia Sans';-inkscape-font-specification:'Sofia Sans, Normal';dominant-baseline:central;text-anchor:end;fill:#ff9900"
+     inkscape:label="H-letter-path"
+     aria-label="Ͱ" />
+  <path
+     d="m 521.42577,317.59734 q -8.15728,0 -8.15728,-8.15728 v -56.28524 q 0,-8.973 8.15728,-8.973 h 351.57878 q 8.15728,0 8.15728,8.973 v 56.28524 q 0,8.15728 -8.15728,8.15728 z m 0,460.88633 q -8.15728,0 -8.15728,-8.97301 v -56.28523 q 0,-8.15728 8.15728,-8.15728 h 351.57878 q 8.15728,0 8.15728,8.15728 v 56.28523 q 0,8.97301 -8.15728,8.97301 z M 585.05256,543.554 q -8.15728,0 -8.15728,-8.15728 v -56.28523 q 0,-8.97301 8.15728,-8.97301 h 223.50948 q 8.15728,0 8.15728,8.97301 v 56.28523 q 0,8.15728 -8.15728,8.15728 z"
+     id="text9"
+     style="font-weight:500;font-size:815.728px;font-family:'Sofia Sans';-inkscape-font-specification:'Sofia Sans, Medium';dominant-baseline:central;fill:#ff9900;stroke-width:1.00124"
+     inkscape:label="X-letter-path"
+     transform="scale(0.99869623,1.0013055)"
+     aria-label="Ξ" />
+  <!-- Left Character: Ͱ -->
+  <!-- x: 240 * 2 = 480 -->
+  <!-- font-size: 360 * 2 = 720 -->
+  <!-- dy: 2 * 2 = 4 -->
+  <text
+     x="573.84009"
+     y="577.47998"
+     font-family="'Sofia Sans', monospace"
+     font-weight="bold"
+     font-size="720"
+     fill="#ff9900"
+     text-anchor="end"
+     dominant-baseline="central"
+     dy="4"
+     id="text1"
+     inkscape:label="H-letter"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:720px;font-family:'Sofia Sans';-inkscape-font-specification:'Sofia Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;dominant-baseline:central;text-anchor:end;display:none;fill:#ff9900">Ͱ</text>
+  <!-- Right Character: Ξ -->
+  <!-- x: 216 * 2 = 432 -->
+  <!-- dy: 16 * 2 = 32 -->
+  <text
+     x="465.95627"
+     y="542.50989"
+     font-family="'Sofia Sans', monospace"
+     font-weight="bold"
+     font-size="720"
+     fill="#ff9900"
+     text-anchor="start"
+     dominant-baseline="central"
+     dy="32.041782"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:815.728px;font-family:'Sofia Sans';-inkscape-font-specification:'Sofia Sans, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;dominant-baseline:central;text-anchor:start;display:none;fill:#ff9900;stroke-width:1.00124"
+     inkscape:label="X-letter"
+     transform="scale(0.99869623,1.0013055)">Ξ</text>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Grid"
+     style="display:none"
+     transform="translate(-3.0822754,3.0822754)">
+    <rect
+       style="fill:#ff0000"
+       id="rect2"
+       width="19.747999"
+       height="1024"
+       x="505.20828"
+       y="-3.0822754"
+       inkscape:label="1.Vertical line" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect2"
+       id="use2"
+       transform="rotate(90,515.08228,508.91772)"
+       style="display:inline"
+       inkscape:label="1.Horizontal Line" />
+    <rect
+       style="fill:#ff0000"
+       id="rect3"
+       width="23.038824"
+       height="244.5"
+       x="193.97539"
+       y="-3.0822754"
+       ry="3.2912607"
+       inkscape:label="2.Top left" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect3"
+       id="use3"
+       transform="translate(505.20851)"
+       inkscape:label="2.Top right" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect3"
+       id="use4"
+       inkscape:label="2.Bottom left"
+       transform="translate(0,779.5)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3"
+       id="use5"
+       inkscape:label="2.Bottom right"
+       transform="translate(0,779.5)" />
+    <rect
+       style="fill:#ff0000"
+       id="rect5"
+       width="144"
+       height="32.912605"
+       x="3.0822754"
+       y="248.69916"
+       ry="0"
+       inkscape:label="3.Left top" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect5"
+       id="use6"
+       inkscape:label="3.Left bottom"
+       transform="translate(0,488.75221)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect5"
+       id="use7"
+       inkscape:label="3.Right top"
+       transform="translate(880)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use6"
+       id="use8"
+       inkscape:label="3.Right bottom"
+       transform="translate(880)" />
+  </g>
+</svg>
