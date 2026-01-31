@@ -22,6 +22,12 @@ export const CATEGORIES = [
   { title: 'Tech & Gear', slug: 'tech', navLabel: 'Tech' },
 ] as const;
 
+/**
+ * Centralized Allowed Tags
+ * Only tags in this list will be permitted in article frontmatter.
+ */
+export const ALLOWED_TAGS = ['reviews'] as const;
+
 type SupportedSocials =
   | 'twitter'
   | 'discord'
@@ -31,6 +37,7 @@ type SupportedSocials =
   | 'github'
   | 'tiktok'
   | 'instagram';
+
 /**
  * A list of all the social media I'm using.
  *

@@ -5,7 +5,7 @@ pubDate: '2026-01-08'
 heroImage: '/blog-placeholder-2.jpg'
 category: 'games'
 tags:
-  - 'game Review'
+  - 'reviews'
 ---
 
 From Software has done it again. The expansion is larger than most full games released this year.
