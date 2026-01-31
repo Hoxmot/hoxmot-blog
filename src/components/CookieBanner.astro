@@ -104,6 +104,7 @@
 
 <script>
   import { getConsent, saveConsent, CONSENT_VERSION } from '../utils/storageUtils';
+  import { EVENTS } from '../consts';
 
   const BANNER_ID = 'cookie-consent-banner';
 
@@ -170,7 +171,7 @@
   btnClose?.addEventListener('click', declineHandler);
 
   // Listen for custom event from footer
-  document.addEventListener('hoxmot:open-cookie-banner', handleReopen);
+  document.addEventListener(EVENTS.OPEN_COOKIE_BANNER, handleReopen);
 
   // Initialize
   init();

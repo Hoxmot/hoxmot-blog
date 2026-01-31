@@ -193,9 +193,10 @@ const today = new Date();
   </div>
 
   <script>
+    import { EVENTS } from '../consts';
     const btn = document.getElementById('open-cookie-preferences');
     btn?.addEventListener('click', () => {
-      document.dispatchEvent(new Event('hoxmot:open-cookie-banner'));
+      document.dispatchEvent(new Event(EVENTS.OPEN_COOKIE_BANNER));
     });
   </script>
 </footer>

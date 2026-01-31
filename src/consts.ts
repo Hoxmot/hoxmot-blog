@@ -7,6 +7,13 @@ export const SITE_DESCRIPTION = 'Software development, video games, and tech.';
 export const SHOW_COMMENTS = false;
 
 /**
+ * Global DOM Event Names
+ */
+export const EVENTS = {
+  OPEN_COOKIE_BANNER: 'hoxmot:open-cookie-banner',
+} as const;
+
+/**
  * Centralized Category Definitions
  */
 export const CATEGORIES = [
