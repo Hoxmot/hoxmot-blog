@@ -6,9 +6,20 @@ import ShareButtons from '../components/ShareButtons.astro';
 import { SHOW_COMMENTS } from '../consts';
 import { slugify } from '../utils/slugUtils';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+  readingTime?: string;
+};
 
-const { title, description, pubDate, updatedDate, heroImage, category, tags = [] } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  category,
+  tags = [],
+  readingTime,
+} = Astro.props;
 ---
 
 <BaseLayout
@@ -38,13 +49,21 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 
       <!-- Metadata -->
       <div class="flex flex-col items-center gap-4">
-        <div class="flex items-center gap-4 text-sm text-text-muted">
+        <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-text-muted">
           <FormattedDate date={pubDate} />
           {
             updatedDate && (
               <div class="italic">
                 (Updated on <FormattedDate date={updatedDate} />)
               </div>
+            )
+          }
+          {
+            readingTime && (
+              <>
+                <span aria-hidden="true">•</span>
+                <span>{readingTime}</span>
+              </>
             )
           }
         </div>

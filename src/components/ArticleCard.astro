@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
 import { cleanSlug, slugify } from '../utils/slugUtils';
+import { getReadingTime } from '../utils/readTime';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -11,6 +12,7 @@ interface Props {
 const { post, large = false } = Astro.props;
 const slug = cleanSlug(post.id);
 const tags = post.data.tags || [];
+const readingTime = getReadingTime(post.body);
 ---
 
 <article
@@ -41,11 +43,14 @@ const tags = post.data.tags || [];
   <div class="flex flex-1 flex-col justify-between p-6">
     <div class="space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-4">
-        <span
-          class="bg-primary/10 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium uppercase tracking-wide text-primary"
-        >
-          {post.data.category}
-        </span>
+        <div class="flex items-center gap-2">
+          <span
+            class="bg-primary/10 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium uppercase tracking-wide text-primary"
+          >
+            {post.data.category}
+          </span>
+          <span class="text-xs text-text-muted">• {readingTime}</span>
+        </div>
         <FormattedDate date={post.data.pubDate} />
       </div>
 
