@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ShareButtons from '../components/ShareButtons.astro';
+import SupportBanner from '../components/SupportBanner.astro';
 import { SHOW_COMMENTS } from '../consts';
 import { slugify } from '../utils/slugUtils';
 
@@ -111,9 +112,12 @@ const {
       <slot />
     </div>
 
-    <!-- Footer: Share & Comments placeholder -->
+    <!-- Footer: Share & Support -->
     <footer class="mx-auto mt-16 max-w-prose space-y-8">
       <ShareButtons title={title} url={Astro.url} />
+
+      <!-- Call to Support -->
+      <SupportBanner />
 
       <!-- Comments Placeholder (Task requirement) -->
       {
