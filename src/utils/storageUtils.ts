@@ -32,7 +32,7 @@ export const getConsent = (): ConsentData | null => {
     const stored = localStorage.getItem(STORAGE_KEYS.CONSENT);
     if (!stored) return null;
     return JSON.parse(stored);
-  } catch (e) {
+  } catch {
     return null;
   }
 };

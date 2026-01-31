@@ -46,34 +46,35 @@
 
       <!-- Options -->
       <div class="flex flex-col gap-3">
-        <label class="flex items-center gap-3">
+        <div class="flex items-center gap-3">
           <input
+            id="consent-necessary"
             type="checkbox"
             disabled
             checked
             class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary disabled:opacity-50"
           />
-          <div class="flex flex-col">
+          <label for="consent-necessary" class="flex cursor-pointer flex-col">
             <span class="text-sm font-bold text-text-main">Necessary</span>
             <span class="text-xs text-text-muted"
               >Stores your consent preferences (this banner).</span
             >
-          </div>
-        </label>
+          </label>
+        </div>
 
-        <label class="flex items-center gap-3">
+        <div class="flex items-center gap-3">
           <input
             type="checkbox"
             id="consent-functional"
             class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
           />
-          <div class="flex flex-col">
+          <label for="consent-functional" class="flex cursor-pointer flex-col">
             <span class="text-sm font-bold text-text-main">Functional</span>
             <span class="text-xs text-text-muted"
               >Stores your Light/Dark mode preference in localStorage.</span
             >
-          </div>
-        </label>
+          </label>
+        </div>
       </div>
 
       <!-- Actions -->
