@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { SITE_TITLE } from '../../../consts';
+import { slugify } from '../../../utils/slugUtils';
+import type { PaginateFunction } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+
+export const getStaticPaths = async ({ paginate }: { paginate: PaginateFunction }) => {
+  const allPosts = await getCollection('blog');
+
+  // Get unique tags
+  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
+
+  return uniqueTags.flatMap((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags?.some((t) => slugify(t) === slugify(tag))
+    );
+
+    // Sort by date descending
+    filteredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+    return paginate(filteredPosts, {
+      params: { tag: slugify(tag) },
+      props: { tagName: tag }, // Pass the original (non-slugified) name for display
+      pageSize: 6,
+    });
+  });
+};
+
+const { page, tagName } = Astro.props;
+
+const pageTitle = `#${tagName} | ${SITE_TITLE}`;
+const description = `Browse articles tagged with #${tagName} on Hoxmot Blog.`;
+---
+
+<BaseLayout title={pageTitle} description={description}>
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-12 border-b border-gray-200 pb-6 dark:border-gray-800">
+      <h1 class="font-mono text-4xl font-bold text-text-main">
+        #{tagName}
+      </h1>
+      <p class="mt-4 font-sans text-lg text-text-muted">
+        Browsing articles tagged with <strong>{tagName}</strong>. Page {page.currentPage} of {
+          page.lastPage
+        }.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    {
+      page.data.length > 0 ? (
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {page.data.map((post: CollectionEntry<'blog'>) => (
+            <ArticleCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="py-20 text-center">
+          <p class="text-xl text-text-muted">No articles found with this tag.</p>
+        </div>
+      )
+    }
+
+    <!-- Pagination Controls -->
+    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+  </div>
+</BaseLayout>

@@ -4,10 +4,11 @@ import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ShareButtons from '../components/ShareButtons.astro';
 import { SHOW_COMMENTS } from '../consts';
+import { slugify } from '../utils/slugUtils';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, category } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, category, tags = [] } = Astro.props;
 ---
 
 <BaseLayout
@@ -36,12 +37,30 @@ const { title, description, pubDate, updatedDate, heroImage, category } = Astro.
       </h1>
 
       <!-- Metadata -->
-      <div class="flex items-center justify-center gap-4 text-sm text-text-muted">
-        <FormattedDate date={pubDate} />
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex items-center gap-4 text-sm text-text-muted">
+          <FormattedDate date={pubDate} />
+          {
+            updatedDate && (
+              <div class="italic">
+                (Updated on <FormattedDate date={updatedDate} />)
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Tags -->
         {
-          updatedDate && (
-            <div class="italic">
-              (Updated on <FormattedDate date={updatedDate} />)
+          tags.length > 0 && (
+            <div class="flex flex-wrap justify-center gap-2">
+              {tags.map((tag) => (
+                <a
+                  href={`/tags/${slugify(tag)}`}
+                  class="rounded bg-gray-100 px-2 py-1 font-mono text-sm text-text-muted hover:text-secondary hover:underline dark:bg-gray-800"
+                >
+                  #{tag}
+                </a>
+              ))}
             </div>
           )
         }

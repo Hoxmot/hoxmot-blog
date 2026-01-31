@@ -9,6 +9,7 @@ export const blogSchema = z.object({
   updatedDate: z.coerce.date().optional(),
   heroImage: z.string().optional(),
   category: z.enum(['software', 'games', 'tech']),
+  tags: z.array(z.string()).optional(),
   draft: z.boolean().optional(),
 });
 
@@ -18,4 +19,13 @@ const blog = defineCollection({
   schema: blogSchema,
 });
 
-export const collections = { blog };
+// New collection for static pages (About, etc.)
+const pages = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+  }),
+});
+
+export const collections = { blog, pages };

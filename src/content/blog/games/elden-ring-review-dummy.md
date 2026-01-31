@@ -4,6 +4,8 @@ description: 'A deep dive into the massive expansion that redefines difficulty.'
 pubDate: '2026-01-08'
 heroImage: '/blog-placeholder-2.jpg'
 category: 'games'
+tags:
+  - 'game Review'
 ---
 
 From Software has done it again. The expansion is larger than most full games released this year.
