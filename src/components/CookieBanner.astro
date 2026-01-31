@@ -3,43 +3,194 @@
 ---
 
 <div
-  id="cookie-banner"
-  class="fixed bottom-0 left-0 right-0 z-50 hidden translate-y-full border-t border-gray-200 bg-bg-card p-4 shadow-lg transition-transform duration-300 dark:border-gray-700"
+  id="cookie-consent-banner"
+  class="fixed bottom-0 left-0 right-0 z-50 hidden translate-y-full transition-transform duration-300 ease-in-out"
+  role="dialog"
+  aria-labelledby="cookie-heading"
 >
-  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
-    <div class="text-sm text-text-muted">
-      <p>
-        We use local storage to save your theme preference (Dark/Light mode). By continuing to use
-        this site, you agree to this functionality.
-      </p>
+  <div
+    class="mx-auto max-w-7xl border-t border-gray-200 bg-bg-card p-6 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] dark:border-gray-800 dark:shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.5)] sm:px-6 lg:px-8"
+  >
+    <div class="flex flex-col gap-6">
+      <!-- Header & Close -->
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 id="cookie-heading" class="font-mono text-lg font-bold text-text-main">
+            Cookie Preferences
+          </h2>
+          <p class="mt-2 text-sm text-text-muted">
+            This website does not use tracking cookies. However, we use <code>localStorage</code> to store
+            your preferences.
+          </p>
+        </div>
+        <button
+          id="cookie-close"
+          class="rounded p-1 text-text-muted transition-colors hover:bg-gray-100 hover:text-text-main dark:hover:bg-gray-800"
+          aria-label="Close and decline all"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Options -->
+      <div class="flex flex-col gap-3">
+        <label class="flex items-center gap-3">
+          <input
+            type="checkbox"
+            disabled
+            checked
+            class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary disabled:opacity-50"
+          />
+          <div class="flex flex-col">
+            <span class="text-sm font-bold text-text-main">Necessary</span>
+            <span class="text-xs text-text-muted"
+              >Stores your consent preferences (this banner).</span
+            >
+          </div>
+        </label>
+
+        <label class="flex items-center gap-3">
+          <input
+            type="checkbox"
+            id="consent-functional"
+            class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+          />
+          <div class="flex flex-col">
+            <span class="text-sm font-bold text-text-main">Functional</span>
+            <span class="text-xs text-text-muted"
+              >Stores your Light/Dark mode preference in localStorage.</span
+            >
+          </div>
+        </label>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
+        <button
+          id="cookie-decline-all"
+          class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-text-main hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
+        >
+          Decline All
+        </button>
+        <button
+          id="cookie-accept-selected"
+          class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-text-main hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
+        >
+          Accept Selected
+        </button>
+        <button
+          id="cookie-accept-all"
+          class="rounded-lg bg-primary px-4 py-2 text-sm font-bold text-text-inverse hover:opacity-90"
+        >
+          Accept All
+        </button>
+      </div>
     </div>
-    <button
-      id="accept-cookies"
-      class="whitespace-nowrap rounded bg-primary px-6 py-2 text-sm font-bold text-text-inverse hover:opacity-90"
-    >
-      Got it
-    </button>
   </div>
 </div>
 
 <script>
-  const banner = document.getElementById('cookie-banner');
-  const acceptBtn = document.getElementById('accept-cookies');
-  const consent = localStorage.getItem('cookie-consent');
+  const BANNER_ID = 'cookie-consent-banner';
+  const STORAGE_KEY = 'hoxmot-consent';
+  const CONSENT_VERSION = 1; // Increment this to force re-consent
 
-  if (!consent) {
-    banner?.classList.remove('hidden');
-    // Small delay for animation effect
-    setTimeout(() => {
-      banner?.classList.remove('translate-y-full');
-    }, 100);
+  // UI Elements
+  const banner = document.getElementById(BANNER_ID);
+  const functionalCheckbox = document.getElementById(
+    'consent-functional'
+  ) as HTMLInputElement | null;
+  const btnAcceptAll = document.getElementById('cookie-accept-all');
+  const btnAcceptSelected = document.getElementById('cookie-accept-selected');
+  const btnDeclineAll = document.getElementById('cookie-decline-all');
+  const btnClose = document.getElementById('cookie-close');
+
+  type ConsentData = {
+    version: number;
+    categories: {
+      necessary: boolean;
+      functional: boolean;
+    };
+    timestamp: number;
+  };
+
+  function getStoredConsent(): ConsentData | null {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return null;
+      return JSON.parse(stored);
+    } catch (e) {
+      return null;
+    }
   }
 
-  acceptBtn?.addEventListener('click', () => {
-    localStorage.setItem('cookie-consent', 'true');
+  function showBanner() {
+    banner?.classList.remove('hidden');
+    // Small delay to allow display:block to apply before transition
+    requestAnimationFrame(() => {
+      banner?.classList.remove('translate-y-full');
+    });
+  }
+
+  function hideBanner() {
     banner?.classList.add('translate-y-full');
     setTimeout(() => {
       banner?.classList.add('hidden');
-    }, 300);
+    }, 300); // Match transition duration
+  }
+
+  function saveConsent(functional: boolean) {
+    const data: ConsentData = {
+      version: CONSENT_VERSION,
+      categories: {
+        necessary: true,
+        functional: functional,
+      },
+      timestamp: Date.now(),
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    hideBanner();
+
+    // If functional is declined, we should technically clear the theme preference
+    // to respect the user's choice immediately.
+    if (!functional) {
+      localStorage.removeItem('theme');
+    }
+  }
+
+  function init() {
+    const currentConsent = getStoredConsent();
+
+    // Show banner if no consent exists OR version is outdated
+    if (!currentConsent || currentConsent.version < CONSENT_VERSION) {
+      // Browser might persist checkbox state on reload, so we force it to unchecked
+      if (functionalCheckbox) functionalCheckbox.checked = false;
+      showBanner();
+    }
+  }
+
+  // Event Listeners
+  btnAcceptAll?.addEventListener('click', () => saveConsent(true));
+
+  btnAcceptSelected?.addEventListener('click', () => {
+    saveConsent(functionalCheckbox?.checked ?? false);
   });
+
+  const declineHandler = () => saveConsent(false);
+  btnDeclineAll?.addEventListener('click', declineHandler);
+  btnClose?.addEventListener('click', declineHandler);
+
+  // Initialize
+  init();
 </script>
