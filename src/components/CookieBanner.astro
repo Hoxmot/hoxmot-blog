@@ -148,6 +148,16 @@
     }
   }
 
+  // Handle opening from footer link
+  function handleReopen() {
+    const currentConsent = getConsent();
+    if (functionalCheckbox) {
+      // Pre-fill based on current stored value, default to false if not set
+      functionalCheckbox.checked = currentConsent?.categories.functional ?? false;
+    }
+    showBanner();
+  }
+
   // Event Listeners
   btnAcceptAll?.addEventListener('click', () => handleConsent(true));
 
@@ -158,6 +168,9 @@
   const declineHandler = () => handleConsent(false);
   btnDeclineAll?.addEventListener('click', declineHandler);
   btnClose?.addEventListener('click', declineHandler);
+
+  // Listen for custom event from footer
+  document.addEventListener('hoxmot:open-cookie-banner', handleReopen);
 
   // Initialize
   init();
