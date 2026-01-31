@@ -3,14 +3,15 @@ import BaseHead from '../components/BaseHead.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { STORAGE_KEYS } from '../utils/storageUtils';
 
-interface Props {
+type Props = {
   title: string;
   description: string;
   image?: string;
   type?: 'website' | 'article';
   publishDate?: Date;
-}
+};
 
 const { title, description, image, type, publishDate } = Astro.props;
 ---
@@ -25,11 +26,19 @@ const { title, description, image, type, publishDate } = Astro.props;
       type={type}
       publishDate={publishDate}
     />
-    <script is:inline>
-      if (
-        localStorage.getItem('theme') === 'dark' ||
-        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
+    <!-- 
+            Script to prevent FOUC (Flash of Unstyled Content) for Theme.
+            We use define:vars to inject the storage key from our utility, 
+            keeping the script inline for blocking execution.
+        -->
+    <script is:inline define:vars={{ themeKey: STORAGE_KEYS.THEME }}>
+      const stored = typeof localStorage !== 'undefined' ? localStorage.getItem(themeKey) : null;
+      const system = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      // Use stored preference if available, otherwise fall back to system preference
+      // Note: The 'setLocalStorage' utility ensures the 'theme' key is only present
+      // if functional consent was granted.
+      if (stored === 'dark' || (!stored && system)) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');

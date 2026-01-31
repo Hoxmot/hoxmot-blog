@@ -34,15 +34,14 @@
 </button>
 
 <script>
+  import { setLocalStorage, STORAGE_KEYS } from '../utils/storageUtils';
+
   const themeToggleBtn = document.getElementById('theme-toggle');
   const lightIcon = document.getElementById('theme-toggle-light-icon');
   const darkIcon = document.getElementById('theme-toggle-dark-icon');
 
-  // Determine current theme
-  const currentTheme = localStorage.getItem('theme');
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  const isDark = currentTheme === 'dark' || (!currentTheme && systemPrefersDark);
+  // Determine current theme state purely from DOM (which was set by BaseLayout head script)
+  const isDark = document.documentElement.classList.contains('dark');
 
   // Initial Icon State
   if (isDark) {
@@ -56,13 +55,13 @@
     darkIcon?.classList.toggle('hidden');
     lightIcon?.classList.toggle('hidden');
 
-    // Toggle class and storage
+    // Toggle class and try to save preference via consent-aware utility
     if (document.documentElement.classList.contains('dark')) {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      setLocalStorage(STORAGE_KEYS.THEME, 'light');
     } else {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      setLocalStorage(STORAGE_KEYS.THEME, 'dark');
     }
   });
 </script>

@@ -102,9 +102,9 @@
 </div>
 
 <script>
+  import { getConsent, saveConsent, CONSENT_VERSION } from '../utils/storageUtils';
+
   const BANNER_ID = 'cookie-consent-banner';
-  const STORAGE_KEY = 'hoxmot-consent';
-  const CONSENT_VERSION = 1; // Increment this to force re-consent
 
   // UI Elements
   const banner = document.getElementById(BANNER_ID);
@@ -115,25 +115,6 @@
   const btnAcceptSelected = document.getElementById('cookie-accept-selected');
   const btnDeclineAll = document.getElementById('cookie-decline-all');
   const btnClose = document.getElementById('cookie-close');
-
-  type ConsentData = {
-    version: number;
-    categories: {
-      necessary: boolean;
-      functional: boolean;
-    };
-    timestamp: number;
-  };
-
-  function getStoredConsent(): ConsentData | null {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) return null;
-      return JSON.parse(stored);
-    } catch (e) {
-      return null;
-    }
-  }
 
   function showBanner() {
     banner?.classList.remove('hidden');
@@ -150,27 +131,13 @@
     }, 300); // Match transition duration
   }
 
-  function saveConsent(functional: boolean) {
-    const data: ConsentData = {
-      version: CONSENT_VERSION,
-      categories: {
-        necessary: true,
-        functional: functional,
-      },
-      timestamp: Date.now(),
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  function handleConsent(functional: boolean) {
+    saveConsent({ functional });
     hideBanner();
-
-    // If functional is declined, we should technically clear the theme preference
-    // to respect the user's choice immediately.
-    if (!functional) {
-      localStorage.removeItem('theme');
-    }
   }
 
   function init() {
-    const currentConsent = getStoredConsent();
+    const currentConsent = getConsent();
 
     // Show banner if no consent exists OR version is outdated
     if (!currentConsent || currentConsent.version < CONSENT_VERSION) {
@@ -181,13 +148,13 @@
   }
 
   // Event Listeners
-  btnAcceptAll?.addEventListener('click', () => saveConsent(true));
+  btnAcceptAll?.addEventListener('click', () => handleConsent(true));
 
   btnAcceptSelected?.addEventListener('click', () => {
-    saveConsent(functionalCheckbox?.checked ?? false);
+    handleConsent(functionalCheckbox?.checked ?? false);
   });
 
-  const declineHandler = () => saveConsent(false);
+  const declineHandler = () => handleConsent(false);
   btnDeclineAll?.addEventListener('click', declineHandler);
   btnClose?.addEventListener('click', declineHandler);
 
