@@ -11,9 +11,10 @@ type Props = {
   image?: string;
   type?: 'website' | 'article';
   publishDate?: Date;
+  ignoreIndex?: boolean; // New prop to exclude page from Pagefind indexing
 };
 
-const { title, description, image, type, publishDate } = Astro.props;
+const { title, description, image, type, publishDate, ignoreIndex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -45,7 +46,10 @@ const { title, description, image, type, publishDate } = Astro.props;
       }
     </script>
   </head>
-  <body class="flex min-h-screen flex-col bg-bg-main text-text-main antialiased">
+  <body
+    class="flex min-h-screen flex-col bg-bg-main text-text-main antialiased"
+    data-pagefind-ignore={ignoreIndex ? 'true' : undefined}
+  >
     <Header />
 
     <main class="w-full flex-grow">
